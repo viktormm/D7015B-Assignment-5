@@ -28,8 +28,11 @@ def show_scatter(x,y):
     plt.scatter(x, y)
     plt.show()
 
-def get_ground_level(pcd):
-    return 64
+def get_ground_level(pcd, bins=100):
+    z_values = pcd[:, 2]
+    counts, bin_edges = np.histogram(z_values, bins=bins)
+    ground_bin = np.argmax(counts)
+    return (bin_edges[ground_bin] + bin_edges[ground_bin + 1]) / 2
 
 
 #%% read file containing point cloud data
