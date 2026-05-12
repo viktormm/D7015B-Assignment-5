@@ -32,7 +32,8 @@ def get_ground_level(pcd, bins=100):
     z_values = pcd[:, 2]
     counts, bin_edges = np.histogram(z_values, bins=bins)
     ground_bin = np.argmax(counts)
-    return (bin_edges[ground_bin] + bin_edges[ground_bin + 1]) / 2
+    threshold_bin = min(ground_bin + 1, len(counts) - 1)
+    return (bin_edges[threshold_bin] + bin_edges[threshold_bin + 1]) / 2
 
 
 #%% read file containing point cloud data
